@@ -26,6 +26,24 @@ public class JoyStick : MonoBehaviour
         joysticSpeed = 0.0f;
     }
 
+
+    private void Update()
+    {
+        if (isDown)
+        {
+            PlayerController.instance.DoMove(joyStickMoveVector);
+        }
+        else
+        {
+        }
+    }
+
+    public void JoystickPointerDown()
+    {
+        joyStickMoveVector = Vector3.zero;
+        isDown = true;
+    }
+
     public void JoystickDrag()
     {
         Vector2 mousePos = Input.mousePosition;
@@ -35,29 +53,21 @@ public class JoyStick : MonoBehaviour
 
         joysticSpeed = Vector2.Distance(rect_BackGround.position, rect_Joystick.position) / radius; // 조이스틱과 백그라운드 이미지 거리 ( 조이스틱 거리에 따라 이동속도 다르게 구현)
 
+        PlayerController.instance.SetSpeed(5.0f * joysticSpeed);
+
         rect_Joystick.localPosition = joyStickMoveVector;
 
         joyStickMoveVector = joyStickMoveVector.normalized;
 
     }
 
-    private void Update()
-    {
-        //if(isDown)
-        //{
-        //    CameraController.instance.CameraMove(joyStickMoveVector, joysticSpeed);
-        //}
-    }
     public void JoystickEndDrag()
     {
         rect_Joystick.localPosition = Vector3.zero;
+
+        PlayerController.instance.SetSpeed(0.0f);
         joyStickMoveVector = Vector2.zero;
         isDown = false;
     }
 
-    public void JoystickPointerDown()
-    {
-        isDown = true;
-    }
-   
 }
