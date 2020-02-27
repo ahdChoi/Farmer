@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     static public PlayerController instance;
     // Start is called before the first frame update
     Coroutine curMoveCor;
+
+    int test = 0;
     private void Awake()
     {
         if (instance == null)
@@ -44,12 +46,16 @@ public class PlayerController : MonoBehaviour
         SetSpeed(3.0f);
 
         if (curMoveCor != null)
+        {
             StopCoroutine(curMoveCor);
+        }
+
         curMoveCor = StartCoroutine(corPickingMove(_pos));
     }
 
     IEnumerator corPickingMove(Vector3 _pos)
     {
+
         //transform.LookAt(_pos, Vector3.up);
         while (true)
         {
@@ -66,7 +72,10 @@ public class PlayerController : MonoBehaviour
             dir.Normalize();
             transform.position += dir * Time.deltaTime * moveSpeed;
 
-            yield return new WaitForEndOfFrame();
+            yield return null;
+
+             //yield return new WaitForEndOfFrame();
         }
+
     }
 }

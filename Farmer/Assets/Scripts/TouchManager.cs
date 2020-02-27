@@ -13,9 +13,10 @@ public class TouchManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //To do : Input.mousePostion -> touch_fingerID
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
 
         if (Input.touchCount > 0)
         {
@@ -25,7 +26,7 @@ public class TouchManager : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit))
                 {
-
+                    
                     if (touch.phase == TouchPhase.Began)
                     {
                         PlayerController.instance.PickingMove(hit.point);
@@ -40,7 +41,6 @@ public class TouchManager : MonoBehaviour
 
                     if (touch.phase == TouchPhase.Ended)
                     {
-                       
                     }
                 }
             }
